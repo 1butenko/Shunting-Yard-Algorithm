@@ -1,6 +1,6 @@
 public class Stack<T>
 {
-    private static int capacity = 50;
+    private const int capacity = 50;
     private int pointer = 0;
     private T[] array = new T[capacity];
 
