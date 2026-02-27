@@ -14,32 +14,30 @@ public class Tokenizer
 
         foreach (var s in r)
         {
+            if (char.IsDigit(s))
             {
-                if (char.IsDigit(s))
+                buffer += s;
+            }
+            else if (char.IsWhiteSpace(s))
+            {
+                if (!string.IsNullOrEmpty(buffer))
                 {
-                    buffer += s;
+                    tokens.Add(buffer);
+                    buffer = String.Empty;
                 }
-                else if (char.IsWhiteSpace(s))
+            }
+            else if (operators.Contains(s))
+            {
+                if (!string.IsNullOrEmpty(buffer))
                 {
-                    if (!string.IsNullOrEmpty(buffer))
-                    {
-                        tokens.Add(buffer);
-                        buffer = String.Empty;
-                    }
+                    tokens.Add(buffer);
+                    buffer = String.Empty;
                 }
-                else if (operators.Contains(s))
-                {
-                    if (!string.IsNullOrEmpty(buffer))
-                    {
-                        tokens.Add(buffer);
-                        buffer = String.Empty;
-                    }
-                    tokens.Add(s.ToString());
-                }
-                else
-                {
-                    throw new ArgumentException("This symbol is not supported!");
-                }
+                tokens.Add(s.ToString());
+            }
+            else
+            {
+                throw new ArgumentException("This symbol is not supported!");
             }
         }
 
