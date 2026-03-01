@@ -4,6 +4,9 @@ public class Stack<T>
     private int pointer = 0;
     private T[] array = new T[capacity];
 
+    public int Count() => pointer;
+    public T Peek() => array[pointer - 1];
+
     public void Push(T element)
     {
         if (pointer == array.Length)
