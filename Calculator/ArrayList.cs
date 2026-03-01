@@ -10,7 +10,7 @@ public class ArrayList<T>
     public void Add(T element)
     {
         array[pointer] = element;
-        pointer += 1;
+        pointer++;
         
         if (pointer == array.Length)
         {
