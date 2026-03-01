@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 public class Queue<T>
 {
     private const int capacity = 50;
@@ -26,5 +28,15 @@ public class Queue<T>
         counter--;
 
         return element;
+    }
+
+    public T[] ToArray()
+    {
+        T[] result = new T[counter];
+        
+        for (int i = 0; i < counter; i++)
+            result[i] = array[(outPointer + i) % array.Length];
+        
+        return result;
     }
 }
