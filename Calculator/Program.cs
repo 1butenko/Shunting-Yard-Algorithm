@@ -3,11 +3,13 @@
 char[] operators = { '(', ')', '+', '-', '*', '/', '^' };
 
 Tokenizer tokenizer = new Tokenizer(operators);
-Queue<char> output = new();
-Stack<char> stack = new();
 
-Algorithm algorithm = new Algorithm(output, stack, operators);
+ArrayList<char> tokens = tokenizer.Tokenize(input);
 
-Calculator calculator = new Calculator(operators, tokenizer, algorithm);
+Algorithm algorithm = new Algorithm(tokens);
 
-Console.WriteLine(calculator.calculate(input));
+Queue<char> output = algorithm.ShuntingYard();
+
+// Calculator calculator = new Calculator(operators, tokenizer, algorithm);
+
+Console.WriteLine(String.Join("", output.ToArray()));
