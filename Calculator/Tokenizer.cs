@@ -19,7 +19,7 @@ public class Tokenizer
             }
             else if (!char.IsWhiteSpace(s))
             {
-                throw new ArgumentException("This symbol is not supported!");
+                throw new ArgumentException($"This symbol is not supported: {s}");
             }
         }
         return tokens;
