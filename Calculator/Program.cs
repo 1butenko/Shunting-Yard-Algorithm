@@ -1,6 +1,6 @@
 ﻿string input = Console.ReadLine() ?? string.Empty;
 
-char[] operators = { '(', ')', '+', '-', '*', '/', '^' };
+char[] operators = { '(', ')', '+', '-', '*', '/', '^', 's', 'c', 'm', ',' };
 
 Tokenizer tokenizer = new Tokenizer(operators);
 
