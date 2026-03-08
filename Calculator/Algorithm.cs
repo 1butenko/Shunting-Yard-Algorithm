@@ -5,6 +5,7 @@ public class Algorithm
     private Stack<char> stack = new();
     private char[] precedence = { '+', '-', '*', '/' };
     private char[] operators = { '+', '-', '*', '/', '^' };
+    private char[] functions = { 's', 'c', 'm' };
 
     public Algorithm(ArrayList<char> tokens)
     {
@@ -19,6 +20,15 @@ public class Algorithm
 
             if (char.IsDigit(token))
                 output.Enqueue(token);
+            if (functions.Contains(token))
+                stack.Push(token);
+            if (token == ',')
+            {
+                while (stack.Peek() != '(')
+                {
+                    output.Enqueue(stack.Pop());
+                }
+            }
             else if (operators.Contains(token))
             {
                 if (stack.Count() == 0)
@@ -43,6 +53,9 @@ public class Algorithm
                 }
 
                 stack.Pop();
+
+                if (functions.Contains(stack.Peek()))
+                    output.Enqueue(stack.Pop());
             }
         }
 
