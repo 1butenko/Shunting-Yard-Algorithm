@@ -6,10 +6,7 @@ Tokenizer tokenizer = new Tokenizer(operators);
 
 ArrayList<char> tokens = tokenizer.Tokenize(input);
 
-Algorithm algorithm = new Algorithm(tokens);
+Algorithm algorithm = new Algorithm();
 
-Queue<char> output = algorithm.ShuntingYard();
-
-// Calculator calculator = new Calculator(operators, tokenizer, algorithm);
-
-Console.WriteLine(String.Join("", output.ToArray()));
+Calculator calculator = new Calculator(tokenizer, algorithm);
+Console.WriteLine(calculator.calculate(input));
