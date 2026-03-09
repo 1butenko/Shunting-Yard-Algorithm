@@ -10,6 +10,8 @@ public class Tokenizer
 
     public ArrayList<char> Tokenize(string input)
     {
+        tokens = new();
+        
         char[] r = input.ToCharArray();
         foreach (var s in r)
         {
