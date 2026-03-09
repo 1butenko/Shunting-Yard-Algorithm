@@ -8,15 +8,18 @@ public class Algorithm
 
     public Queue<char> ShuntingYard(ArrayList<char> tokens)
     {
+        output = new();
+        stack = new();
+
         for (int i = 0; i < tokens.Count(); i++)
         {
             char token = tokens.Get(i);
 
             if (char.IsDigit(token))
                 output.Enqueue(token);
-            if (functions.Contains(token))
+            else if (functions.Contains(token))
                 stack.Push(token);
-            if (token == ',')
+            else if (token == ',')
             {
                 while (stack.Peek() != '(')
                 {
@@ -29,7 +32,7 @@ public class Algorithm
                     stack.Push(token);
                 else
                 {
-                    while (stack.Count() > 0 && stack.Peek() != '(' &&  precedence.IndexOf(token) < precedence.IndexOf(stack.Peek()))
+                    while (stack.Count() > 0 && stack.Peek() != '(' &&  precedence.IndexOf(token) >= precedence.IndexOf(stack.Peek()))
                     {   
                         output.Enqueue(stack.Pop());
                     }
