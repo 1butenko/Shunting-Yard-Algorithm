@@ -1,48 +1,19 @@
-// public class Calculator
-// {
-//     private char[] operators;
-//     private Tokenizer tokenizer;
-//     private Algorithm algorithm;
+public class Calculator
+{
+    private Algorithm algorithm;
+    private Tokenizer tokenizer;
+    public char[] Symbols {get => operators;}
+    private char[] operators = { '+', '-', '*', '/', '^', 's', 'c', 'm' };
 
-//     public Calculator(char[] operators, Tokenizer tokenizer, Algorithm algorithm)
-//     {
-//         this.operators = operators;
-//         this.tokenizer = tokenizer;
-//         this.algorithm = algorithm;
-//     }
+    public Calculator(Tokenizer tokenizer, Algorithm algorithm)
+    {
+        this.algorithm = algorithm;
+        this.tokenizer = tokenizer;
+    }
 
-//     public int calculate(string input)
-//     {
-//         ArrayList<char> tokens = tokenizer.Tokenize(input);
-//         char[] postfixTokens = algorithm.ShuntigYard(tokens).ToArray();
-
-//         Console.WriteLine(string.Join(" ", postfixTokens));
-
-//         Stack<int> buffer = new();
-
-//         foreach (var t in postfixTokens)
-//         {
-//             if (char.IsDigit(t))
-//                 buffer.Push((int)char.GetNumericValue(t));
-//             else if (operators.Contains(t))
-//             {
-//                 int firstNumber = buffer.Pop();
-//                 int secondNumber = buffer.Pop();
-
-//                 int result = t switch
-//                 {
-//                     '+' => firstNumber + secondNumber,
-//                     '-' => firstNumber - secondNumber,
-//                     '*' => firstNumber * secondNumber,
-//                     '/' => firstNumber / secondNumber,
-//                     '^' => (int)Math.Pow(firstNumber, secondNumber),
-//                     _ => throw new InvalidOperationException($"Unknown operator: {t}")
-//                 };
-
-//                 buffer.Push(result);
-//             }
-//         }
-
-//         return buffer.Pop();
-//     }
-// }
+    public int calculate(string input)
+    {
+        ArrayList<char> tokens = tokenizer.Tokenize(input);
+        char[] rpn = algorithm.ShuntingYard(tokens).ToArray();
+    }
+}
