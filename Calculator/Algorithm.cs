@@ -1,18 +1,12 @@
 public class Algorithm
 {
-    private ArrayList<char> tokens;
     private Queue<char> output = new();
     private Stack<char> stack = new();
     private char[] precedence = { '+', '-', '*', '/' };
     private char[] operators = { '+', '-', '*', '/', '^' };
     private char[] functions = { 's', 'c', 'm' };
 
-    public Algorithm(ArrayList<char> tokens)
-    {
-        this.tokens = tokens;
-    }
-
-    public Queue<char> ShuntingYard()
+    public Queue<char> ShuntingYard(ArrayList<char> tokens)
     {
         for (int i = 0; i < tokens.Count(); i++)
         {
