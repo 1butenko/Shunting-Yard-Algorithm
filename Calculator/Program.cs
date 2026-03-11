@@ -1,11 +1,6 @@
 ﻿string input = Console.ReadLine() ?? string.Empty;
 
-char[] operators = { '(', ')', '+', '-', '*', '/', '^', 's', 'c', 'm', ',' };
-
-Tokenizer tokenizer = new Tokenizer(operators);
-
-ArrayList<char> tokens = tokenizer.Tokenize(input);
-
+Tokenizer tokenizer = new Tokenizer();
 Algorithm algorithm = new Algorithm();
 
 Calculator calculator = new Calculator(tokenizer, algorithm);

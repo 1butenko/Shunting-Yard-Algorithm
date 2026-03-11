@@ -1,12 +1,7 @@
 public class Tokenizer
 {
-    private char[] operators { get; set; }
+    private char[] chars = { '(', ')', '+', '-', '*', '/', '^', 's', 'c', 'm', ',' };
     private ArrayList<char> tokens = new();
-
-    public Tokenizer(char[] operators)
-    {
-        this.operators = operators;
-    }
 
     public ArrayList<char> Tokenize(string input)
     {
@@ -15,7 +10,7 @@ public class Tokenizer
         char[] r = input.ToCharArray();
         foreach (var s in r)
         {
-            if (char.IsDigit(s) || operators.Contains(s))
+            if (char.IsDigit(s) || chars.Contains(s))
             {
                 tokens.Add(s);
             }
