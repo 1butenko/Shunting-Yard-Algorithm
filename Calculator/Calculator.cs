@@ -2,19 +2,29 @@ public class Calculator
 {
     private Algorithm algorithm;
     private Tokenizer tokenizer;
+    private VariableStorage variableStorage;
+    private char? variableName = null;
     private Stack<int> s = new();
     public char[] Operators { get => operators; }
     private char[] operators = { '+', '-', '*', '/', '^' };
 
-    public Calculator(Tokenizer tokenizer, Algorithm algorithm)
+    public Calculator(Tokenizer tokenizer, Algorithm algorithm, VariableStorage variableStorage)
     {
         this.algorithm = algorithm;
         this.tokenizer = tokenizer;
+        this.variableStorage = variableStorage;
     }
 
     public int calculate(string input)
     {
         ArrayList<char> tokens = tokenizer.Tokenize(input);
+
+        if (char.IsLetter(tokens.Get(0)))
+        {
+            variableName = tokens.Get(0);
+            tokens.Remove(tokens.Get(0));
+        }
+
         char[] rpn = algorithm.ShuntingYard(tokens).ToArray();
 
         foreach (var t in rpn)
@@ -52,6 +62,11 @@ public class Calculator
                 };
                 s.Push(result);
             }
+        }
+
+        if (variableName.HasValue)
+        {
+            variableStorage.Add(new Variable(variableName.Value, rpn, variableStorage, s.Peek()));
         }
 
         return s.Pop();

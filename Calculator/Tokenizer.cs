@@ -10,11 +10,11 @@ public class Tokenizer
         char[] r = input.ToCharArray();
         foreach (var s in r)
         {
-            if (char.IsDigit(s) || chars.Contains(s))
+            if (char.IsDigit(s) || chars.Contains(s) || char.IsLetter(s))
             {
                 tokens.Add(s);
             }
-            else if (!char.IsWhiteSpace(s))
+            else if (!char.IsWhiteSpace(s) && s != '=')
             {
                 throw new ArgumentException($"This symbol is not supported: {s}");
             }
