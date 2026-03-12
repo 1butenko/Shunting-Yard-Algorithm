@@ -30,4 +30,16 @@ public class Stack<T>
 
         return element;
     }
+
+    public T[] ToArray()
+    {
+        T[] result = new T[pointer];
+
+        for (int i = 0; i < pointer; i++)
+        {
+            result[i] = array[pointer - i - 1];
+        }
+
+        return result;
+    }
 }
