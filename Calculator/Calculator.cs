@@ -3,7 +3,7 @@ public class Calculator
     private Algorithm algorithm;
     private Tokenizer tokenizer;
     private Stack<int> s = new();
-    public char[] Symbols { get => operators; }
+    public char[] Operators { get => operators; }
     private char[] operators = { '+', '-', '*', '/', '^' };
 
     public Calculator(Tokenizer tokenizer, Algorithm algorithm)
