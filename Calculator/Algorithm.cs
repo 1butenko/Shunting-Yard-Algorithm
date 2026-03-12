@@ -32,7 +32,7 @@ public class Algorithm
                     stack.Push(token);
                 else
                 {
-                    while (stack.Count() > 0 && stack.Peek() != '(' &&  precedence.IndexOf(token) >= precedence.IndexOf(stack.Peek()))
+                    while (stack.Count() > 0 && stack.Peek() != '(' &&  precedence.IndexOf(token) <= precedence.IndexOf(stack.Peek()))
                     {   
                         output.Enqueue(stack.Pop());
                     }
