@@ -51,7 +51,7 @@ public class Algorithm
 
                 stack.Pop();
 
-                if (functions.Contains(stack.Peek()))
+                if (stack.Count() > 0 && functions.Contains(stack.Peek()))
                     output.Enqueue(stack.Pop());
             }
         }
