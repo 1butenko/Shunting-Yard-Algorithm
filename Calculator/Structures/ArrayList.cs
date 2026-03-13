@@ -38,7 +38,6 @@ public class ArrayList<T>
         return -1;
     }
 
-
     public bool Contains(T element)
     {
         return IndexOf(element) != -1;
@@ -59,5 +58,15 @@ public class ArrayList<T>
                 return;
             }
         }
+    }
+
+    public T[] ToArray()
+    {
+        T[] result = new T[pointer];
+        for (int i = 0; i < pointer; i++)
+        {
+            result[i] = array[i];
+        }
+        return result;
     }
 }
