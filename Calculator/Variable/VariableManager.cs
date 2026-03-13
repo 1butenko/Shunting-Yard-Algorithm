@@ -2,7 +2,7 @@ public class VariableManager
 {
     private Calculator calculator;
     private VariableStorage variableStorage;
-    private char? variableName = null;
+    private string? variableName = null;
 
     public VariableManager(VariableStorage variableStorage, Calculator calculator)
     {
@@ -10,11 +10,11 @@ public class VariableManager
         this.calculator = calculator;
     }
 
-    public int ProcessVariablesAndCalculate(ArrayList<char> tokens)
+    public int ProcessVariablesAndCalculate(ArrayList<string> tokens)
     {
-        if (tokens.Count() == 1 && char.IsLetter(tokens.Get(0)))
+        if (tokens.Count() == 1 && tokens.Get(0).Length == 1 && char.IsLetter(tokens.Get(0)[0]))
         {
-            Variable? v = variableStorage.FindByName(tokens.Get(0));
+            Variable? v = variableStorage.FindByName(tokens.Get(0)[0]);
 
             if (v == null)
             {
@@ -24,17 +24,17 @@ public class VariableManager
             return calculator.Calculate(ExpandTokens(v.Tokens));
         }
 
-        ArrayList<char> TokensToCalculate = tokens;
+        ArrayList<string> TokensToCalculate = tokens;
 
-        if (char.IsLetter(TokensToCalculate.Get(0)))
+        if (tokens.Count() > 0 && tokens.Get(0).Length == 1 && char.IsLetter(tokens.Get(0)[0]))
         {
             variableName = tokens.Get(0);
             tokens.Remove(tokens.Get(0));
         }
 
-        if (variableName.HasValue)
+        if (variableName != null)
         {
-            variableStorage.AddOrUpdate(new Variable(variableName.Value, variableStorage, TokensToCalculate));
+            variableStorage.AddOrUpdate(new Variable(variableName[0], variableStorage, TokensToCalculate));
             variableName = null;
             return 0;
         }
@@ -42,23 +42,18 @@ public class VariableManager
         return calculator.Calculate(ExpandTokens(TokensToCalculate));
     }
 
-    // Here also I used method of recursion calling of ExpandTokens function, which was propoused by AI.
-    // I sat about 1 hour thinking how can I rewrite this function without making recursion,
-    // but I didn't come up with better idea ;( 
-    // NOTE: I didn't use AI to write this code, I just asked about how can I implement this function.
-
-    private ArrayList<char> ExpandTokens(ArrayList<char> tokens, ArrayList<char>? visited = null)
+    private ArrayList<string> ExpandTokens(ArrayList<string> tokens, ArrayList<string>? visited = null)
     {
-        ArrayList<char> result = new();
+        ArrayList<string> result = new();
         if (visited == null)
         {
-            visited = new ArrayList<char>();
+            visited = new ArrayList<string>();
         }
 
         for (int i = 0; i < tokens.Count(); i++)
         {
-            char token = tokens.Get(i);
-            Variable? v = variableStorage.FindByName(token);
+            string token = tokens.Get(i);
+            Variable? v = token.Length == 1 ? variableStorage.FindByName(token[0]) : null;
 
             if (v != null)
             {
@@ -66,16 +61,16 @@ public class VariableManager
                     throw new Exception($"Cycle dependecy: {token}");
                 
                 visited.Add(token);
-                result.Add('(');
+                result.Add("(");
 
-                ArrayList<char> inner = ExpandTokens(v.Tokens, visited);
+                ArrayList<string> inner = ExpandTokens(v.Tokens, visited);
                 
                 for (int j = 0; j < inner.Count(); j++)
                 {
                     result.Add(inner.Get(j));
                 }
 
-                result.Add(')');
+                result.Add(")");
                 visited.Remove(token);
             }
             else

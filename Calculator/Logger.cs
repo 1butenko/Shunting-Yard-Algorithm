@@ -1,11 +1,11 @@
 public class Logger()
 {
-    public void Log(AbstractSyntaxTree? ast = null, char[]? rpn = null, int? result = null, bool logAst = false)
+    public void Log(AbstractSyntaxTree? ast = null, string[]? rpn = null, int? result = null, bool logAst = false)
     {
         if (rpn != null)
         {
             Console.WriteLine("================================================");
-            Console.WriteLine($"Reverse Polish Notation: {string.Join("", rpn)}");
+            Console.WriteLine($"Reverse Polish Notation: {string.Join(" ", rpn)}");
         }
 
         if (result != null)

@@ -7,11 +7,11 @@ VariableManager variableManager = new VariableManager(storage, calculator);
 
 while (true){
     string input = Console.ReadLine() ?? string.Empty;
-    ArrayList<char> tokens = tokenizer.Tokenize(input);
+    ArrayList<string> tokens = tokenizer.Tokenize(input);
 
     int result = variableManager.ProcessVariablesAndCalculate(tokens);
 
-    if (tokens.Count() > 1 && char.IsLetter(tokens.Get(0)) || tokens.Count() == 1 && char.IsLetter(tokens.Get(0)))
+    if (tokens.Count() > 0 && tokens.Get(0).Length == 1 && char.IsLetter(tokens.Get(0)[0]))
     {
         logger.Log(result: result);
     }

@@ -1,27 +1,27 @@
 public class Algorithm
 {
-    private Queue<char> output = new();
-    private Stack<char> stack = new();
-    private char[] precedence = { '+', '-', '*', '/' };
-    private char[] operators = { '+', '-', '*', '/', '^' };
-    private char[] functions = { 's', 'c', 'm' };
+    private Queue<string> output = new();
+    private Stack<string> stack = new();
+    private string[] precedence = { "+", "-", "*", "/" };
+    private string[] operators = { "+", "-", "*", "/", "^" };
+    private string[] functions = { "sin", "cos", "max", "clamp" };
 
-    public Queue<char> ShuntingYard(ArrayList<char> tokens)
+    public Queue<string> ShuntingYard(ArrayList<string> tokens)
     {
         output = new();
         stack = new();
 
         for (int i = 0; i < tokens.Count(); i++)
         {
-            char token = tokens.Get(i);
+            string token = tokens.Get(i);
 
-            if (char.IsDigit(token))
+            if (char.IsDigit(token[0]))
                 output.Enqueue(token);
             else if (functions.Contains(token))
                 stack.Push(token);
-            else if (token == ',')
+            else if (token == ",")
             {
-                while (stack.Peek() != '(')
+                while (stack.Peek() != "(")
                 {
                     output.Enqueue(stack.Pop());
                 }
@@ -32,7 +32,7 @@ public class Algorithm
                     stack.Push(token);
                 else
                 {
-                    while (stack.Count() > 0 && stack.Peek() != '(' &&  precedence.IndexOf(token) <= precedence.IndexOf(stack.Peek()))
+                    while (stack.Count() > 0 && stack.Peek() != "(" &&  Array.IndexOf(precedence, token) <= Array.IndexOf(precedence, stack.Peek()))
                     {   
                         output.Enqueue(stack.Pop());
                     }
@@ -40,11 +40,11 @@ public class Algorithm
                     stack.Push(token);
                 }
             }
-            else if (token == '(')
+            else if (token == "(")
                 stack.Push(token);
-            else if (token == ')')
+            else if (token == ")")
             {
-                while (stack.Count() > 0 && stack.Peek() != '(')
+                while (stack.Count() > 0 && stack.Peek() != "(")
                 {
                     output.Enqueue(stack.Pop());
                 }

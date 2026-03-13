@@ -1,28 +1,39 @@
 public class AbstractSyntaxTree()
 {
-    private Stack<Node<char>> stack = new();
-    private char[] operators = { '+', '-', '*', '/', '^', 's', 'c' };
+    private Stack<Node<string>> stack = new();
+    private string[] operators = { "+", "-", "*", "/", "^", "sin", "cos", "max", "clamp" };
 
-    public void Build(char[] rpn)
+    public void Build(string[] rpn)
     {
-        stack = new Stack<Node<char>>();
+        stack = new Stack<Node<string>>();
 
         foreach (var t in rpn)
         {
             if (operators.Contains(t))
             {
-                Node<char> right = stack.Pop();
-                Node<char> left = stack.Pop();
+                if (t == "sin" || t == "cos")
+                {
+                    Node<string> child = stack.Pop();
+                    stack.Push(new Node<string>(t, child, null));
+                }
+                else if (t == "clamp")
+                {
+                    Node<string> max = stack.Pop();
+                    Node<string> min = stack.Pop();
+                    Node<string> val = stack.Pop();
+                    Node<string> range = new Node<string>("range", min, max);
+                    stack.Push(new Node<string>(t, val, range));
+                }
+                else
+                {
+                    Node<string> right = stack.Pop();
+                    Node<string> left = stack.Pop();
 
-                if (operators.Contains(left.Value))
-                    stack.Push(left);
-                else if (operators.Contains(right.Value))
-                    stack.Push(right);
-
-                stack.Push(new Node<char>(t, left, right));
+                    stack.Push(new Node<string>(t, left, right));
+                }
             }
             else
-                stack.Push(new Node<char>(t, null, null));
+                stack.Push(new Node<string>(t, null, null));
         }
     }
 
@@ -32,11 +43,11 @@ public class AbstractSyntaxTree()
     // P.S. I've just asked about approach of making visualization, not how to write code for it.
     public void Visualize()
     {
-        Node<char> root = stack.Peek();
+        Node<string> root = stack.Peek();
 
         VisualizeTree(root, "", true, true);
 
-        void VisualizeTree(Node<char> node, string prefix, bool isLeft, bool isRoot)
+        void VisualizeTree(Node<string> node, string prefix, bool isLeft, bool isRoot)
         {
             string childPrefix;
             bool hasBoth = node.LeftNode != null && node.RightNode != null;

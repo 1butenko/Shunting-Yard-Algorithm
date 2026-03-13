@@ -13,14 +13,14 @@ public class Variable
         }
     }
 
-    public ArrayList<char> Tokens {get => tokens;}
+    public ArrayList<string> Tokens {get => tokens;}
 
     private char name;
-    private ArrayList<char> tokens;
+    private ArrayList<string> tokens;
 
     private VariableStorage storage;
 
-    public Variable(char name, VariableStorage storage, ArrayList<char> tokens)
+    public Variable(char name, VariableStorage storage, ArrayList<string> tokens)
     {
         this.name = name;
         this.storage = storage;
