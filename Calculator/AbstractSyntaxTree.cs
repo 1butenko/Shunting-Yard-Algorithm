@@ -5,6 +5,8 @@ public class AbstractSyntaxTree()
 
     public void Build(char[] rpn)
     {
+        stack = new Stack<Node<char>>();
+
         foreach (var t in rpn)
         {
             if (operators.Contains(t))
